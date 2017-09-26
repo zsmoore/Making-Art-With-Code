@@ -1,0 +1,13 @@
+/* Code sampled from p5 Js reference */
+body, html {
+    height: 100%;
+    font-family: "Stoke";
+}
+
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(251, 241, 199, .75);
+}
