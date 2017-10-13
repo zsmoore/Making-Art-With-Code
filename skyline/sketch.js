@@ -5,7 +5,7 @@ initial = true;
 frames = 0;
 
 function setup() {
-    createCanvas(1920, 1080);
+    createCanvas(1000, 500);
     background('#7ec0ee');
     noStroke();
 }
