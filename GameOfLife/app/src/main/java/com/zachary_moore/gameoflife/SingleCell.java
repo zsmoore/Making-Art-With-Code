@@ -5,11 +5,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-/**
- * Created by zsmoore on 10/12/17.
- */
-
-public class SingleCell {
+class SingleCell {
 
     private int height;
     private int width;
@@ -21,7 +17,7 @@ public class SingleCell {
     private boolean live;
     private final String TAG = this.getClass().getSimpleName();
 
-    public SingleCell(int height, int width, GameOfLife gameOfLife, int x, int y) {
+    SingleCell(int height, int width, GameOfLife gameOfLife, int x, int y) {
         this.height = height;
         this.width = width;
         this.x = x;
@@ -31,7 +27,7 @@ public class SingleCell {
         this.live = false;
     }
 
-    public void display() {
+    void display() {
         if (live) {
             gameOfLife.fill(115);
         } else {
@@ -41,23 +37,23 @@ public class SingleCell {
 
     }
 
-    public boolean isLive() {
+    boolean isLive() {
         return live;
     }
 
-    public void toggleLive() {
+    void toggleLive() {
         live = !live;
     }
 
-    public void setLocation(int row, int col) {
+    void setLocation(int row, int col) {
         location = new Point(row, col);
     }
 
-    public Point getLocation() {
+    Point getLocation() {
         return location;
     }
 
-    public void setNeighbors(ArrayList<SingleCell> neighbors) {
+    void setNeighbors(ArrayList<SingleCell> neighbors) {
         this.neighbors = neighbors;
     }
 
@@ -65,7 +61,7 @@ public class SingleCell {
         return neighbors;
     }
 
-    public ConwayType.Conway getConway() {
+    ConwayType.Conway getConway() {
         int count = 0;
         for (SingleCell cell : neighbors) {
             if (cell.live) {

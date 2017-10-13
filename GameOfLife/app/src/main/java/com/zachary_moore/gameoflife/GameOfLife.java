@@ -1,15 +1,10 @@
 package com.zachary_moore.gameoflife;
 
 import android.graphics.Point;
-import android.util.Log;
 
 import java.util.ArrayList;;
 
 import processing.core.PApplet;
-
-/**
- * Created by zsmoore on 10/12/17.
- */
 
 public class GameOfLife extends PApplet {
 
@@ -22,7 +17,7 @@ public class GameOfLife extends PApplet {
     private SingleCell[][] cellLoc;
     private final String TAG = this.getClass().getSimpleName();
 
-    public GameOfLife (int xNum, int yNum) {
+    GameOfLife (int xNum, int yNum) {
         this.rowSize = yNum;
         this.colSize = xNum;
     }
@@ -70,7 +65,7 @@ public class GameOfLife extends PApplet {
         refresh();
     }
 
-    public void startConway() {
+    void startConway() {
         isStarted = true;
     }
 
@@ -82,7 +77,7 @@ public class GameOfLife extends PApplet {
         cellLoc[row][col].toggleLive();
     }
 
-    public void refresh() {
+    void refresh() {
         for (int i = 0; i < rowSize; i++) {
             for (int j = 0; j < colSize; j++) {
                 cellLoc[i][j].display();
@@ -90,7 +85,7 @@ public class GameOfLife extends PApplet {
         }
     }
 
-    public void setNeighbors() {
+    private void setNeighbors() {
         for (int i = 0; i < rowSize; i++) {
             for (int j = 0; j < colSize; j++) {
                 cellLoc[i][j].setNeighbors(getNeighbors(cellLoc[i][j]));
@@ -98,7 +93,7 @@ public class GameOfLife extends PApplet {
         }
     }
 
-    public ArrayList<SingleCell> getNeighbors(SingleCell toGet) {
+    private ArrayList<SingleCell> getNeighbors(SingleCell toGet) {
         //Initial Capacity to 8 since that is our max
         ArrayList<SingleCell> neighbors = new ArrayList<>(8);
 
@@ -113,25 +108,33 @@ public class GameOfLife extends PApplet {
         return neighbors;
     }
 
-    public void conway() {
+    private void conway() {
+        for (Point toToggle : togglePoints()) {
+            cellLoc[toToggle.x][toToggle.y].toggleLive();
+        }
+    }
+
+    private ArrayList<Point> togglePoints() {
+        ArrayList<Point> result = new ArrayList<>();
         for (int i = 0; i < rowSize; i++) {
             for (int j = 0; j < colSize; j++) {
                 SingleCell cell = cellLoc[i][j];
                 ConwayType.Conway conwayType = cell.getConway();
                 switch(conwayType) {
                     case UNDERPOPULATION:
-                        if (cell.isLive()) cell.toggleLive();
+                        if (cell.isLive()) result.add(new Point(i,j));
                         break;
                     case SURVIVAL:
                         break;
                     case REPRODUCTION:
-                        cell.toggleLive();
+                        result.add(new Point(i, j));
                         break;
                     case OVERPOPULATION:
-                        if (cell.isLive()) cell.toggleLive();
+                        if (cell.isLive()) result.add(new Point(i,j));
                         break;
                 }
             }
         }
+        return result;
     }
 }
