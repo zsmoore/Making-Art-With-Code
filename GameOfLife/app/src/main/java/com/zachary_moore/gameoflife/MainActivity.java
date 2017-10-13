@@ -19,16 +19,24 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
-        final LinearLayout mainLayout = this.findViewById(R.id.main_layout);
-        gameOfLife = new GameOfLife(10, 10);
+        final LinearLayout gameContainer = this.findViewById(R.id.game_container);
+        gameOfLife = new GameOfLife();
         PFragment pFragment = new PFragment(gameOfLife);
-        pFragment.setView(mainLayout, this);
+        pFragment.setView(gameContainer, this);
 
         final Button goButton = this.findViewById(R.id.go_button);
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 gameOfLife.startConway();
+            }
+        });
+
+        final Button resetButton = this.findViewById(R.id.reset_button);
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gameOfLife.reset();
             }
         });
     }

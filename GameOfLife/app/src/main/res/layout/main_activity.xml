@@ -6,10 +6,26 @@
     android:layout_height="match_parent"
     android:id="@+id/main_layout">
 
-    <android.support.v7.widget.AppCompatButton
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/go"
+            android:id="@+id/go_button"/>
+
+        <android.support.v7.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reset"
+            android:id="@+id/reset_button"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/go"
-        android:id="@+id/go_button"/>
-
+        android:id="@+id/game_container"/>
 </LinearLayout>

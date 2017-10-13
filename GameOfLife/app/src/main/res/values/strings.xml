@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">GameOfLife</string>
     <string name="go">Go!</string>
+    <string name="reset">Reset</string>
 </resources>
