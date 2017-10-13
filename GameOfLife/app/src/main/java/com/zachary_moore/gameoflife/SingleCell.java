@@ -17,7 +17,7 @@ class SingleCell {
     private boolean live;
     private final String TAG = this.getClass().getSimpleName();
 
-    SingleCell(int height, int width, GameOfLife gameOfLife, int x, int y) {
+    SingleCell(int height, int width, int x, int y, GameOfLife gameOfLife) {
         this.height = height;
         this.width = width;
         this.x = x;

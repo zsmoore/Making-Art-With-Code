@@ -18,8 +18,8 @@ public class GameOfLife extends PApplet {
     private final String TAG = this.getClass().getSimpleName();
 
     GameOfLife () {
-        this.colSize = 10;
-        this.rowSize = 10;
+        this.colSize = 25;
+        this.rowSize = 25;
     }
 
     public void settings() {
@@ -40,7 +40,7 @@ public class GameOfLife extends PApplet {
         int y = 0;
         for (int i = 0; i < rowSize; i++) {
             for (int j = 0; j < colSize; j++) {
-                SingleCell cell = new SingleCell(cellHeight, cellWidth, this, x, y);
+                SingleCell cell = new SingleCell(cellHeight, cellWidth, x, y, this);
                 cell.setLocation(i, j);
 
                 cellLoc[i][j] = cell;
@@ -109,9 +109,9 @@ public class GameOfLife extends PApplet {
         ArrayList<SingleCell> neighbors = new ArrayList<>(8);
 
         Point baseLocation = toGet.getLocation();
-        for (int i = Math.max(baseLocation.y - 1, 0); i <= Math.min(baseLocation.y + 1, rowSize - 1); i++) {
-            for (int j = Math.max(baseLocation.x - 1, 0); j <= Math.min(baseLocation.x + 1, colSize - 1); j++) {
-                if (!(i == baseLocation.y && j == baseLocation.x)) {
+        for (int i = Math.max(baseLocation.x - 1, 0); i <= Math.min(baseLocation.x + 1, rowSize - 1); i++) {
+            for (int j = Math.max(baseLocation.y - 1, 0); j <= Math.min(baseLocation.y + 1, colSize - 1); j++) {
+                if (!(i == baseLocation.x && j == baseLocation.y)) {
                     neighbors.add(cellLoc[i][j]);
                 }
             }
@@ -121,7 +121,7 @@ public class GameOfLife extends PApplet {
 
     private void conway() {
         for (Point toToggle : togglePoints()) {
-            cellLoc[toToggle.y][toToggle.x].toggleLive();
+            cellLoc[toToggle.x][toToggle.y].toggleLive();
         }
     }
 
