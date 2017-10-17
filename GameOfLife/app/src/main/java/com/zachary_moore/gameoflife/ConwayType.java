@@ -1,12 +1,9 @@
 package com.zachary_moore.gameoflife;
 
-/**
- * Created by zsmoore on 10/13/17.
- */
+class ConwayType {
 
-public class ConwayType {
-
-    public enum Conway {
+    // Different types of possible conway states
+    enum Conway {
         UNDERPOPULATION,
         SURVIVAL,
         OVERPOPULATION,
