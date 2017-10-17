@@ -1,8 +1,9 @@
 package com.zachary_moore.gameoflife;
 
 import android.graphics.Point;
+import android.util.Log;
 
-import java.util.ArrayList;;
+import java.util.ArrayList;
 
 import processing.core.PApplet;
 
@@ -10,16 +11,19 @@ public class GameOfLife extends PApplet {
 
     private int rowSize;
     private int colSize;
-    private int cellHeight;
-    private int cellWidth;
-    private boolean isStarted = false;
+    private float cellHeight;
+    private float cellWidth;
+    private boolean isStarted;
+    private boolean isStep;
 
     private SingleCell[][] cellLoc;
     private final String TAG = this.getClass().getSimpleName();
 
     GameOfLife () {
-        this.colSize = 25;
-        this.rowSize = 25;
+        this.colSize = 35;
+        this.rowSize = 35;
+        isStarted = false;
+        isStep = false;
     }
 
     public void settings() {
@@ -29,18 +33,16 @@ public class GameOfLife extends PApplet {
     public void setup() {
         noStroke();
         background(blue(115));
-        frameRate(15);
 
-        cellHeight = height / rowSize;
-        cellWidth = width / colSize;
+        cellHeight = (float) height / rowSize;
+        cellWidth = (float) width / colSize;
         cellLoc = new SingleCell[rowSize][colSize];
 
-
-        int x = 0;
-        int y = 0;
+        float x = 0;
+        float y = 0;
         for (int i = 0; i < rowSize; i++) {
             for (int j = 0; j < colSize; j++) {
-                SingleCell cell = new SingleCell(cellHeight, cellWidth, x, y, this);
+                SingleCell cell = new SingleCell(x, y, this);
                 cell.setLocation(i, j);
 
                 cellLoc[i][j] = cell;
@@ -58,15 +60,31 @@ public class GameOfLife extends PApplet {
 
     public void draw() {
         if (isStarted) {
+            frameRate(15);
             conway();
         } else if (mousePressed) {
             mouseClicked();
+        } else if(isStep) {
+            conway();
+            isStep = false;
         }
         refresh();
     }
 
     void startConway() {
         isStarted = true;
+    }
+
+    void stepOne() {
+        isStep = true;
+    }
+
+    float getCellHeight() {
+        return cellHeight;
+    }
+
+    float getCellWidth() {
+        return cellWidth;
     }
 
     void reset() {
@@ -83,8 +101,17 @@ public class GameOfLife extends PApplet {
     @Override
     public void mouseClicked() {
         super.mouseClicked();
-        int col = mouseY / cellHeight;
-        int row = mouseX / cellWidth;
+        int col = mouseY / (int) cellHeight;
+        int row = mouseX / (int) cellWidth;
+
+        if (col == colSize) {
+            col --;
+        }
+
+        if (row == rowSize) {
+            row --;
+        }
+
         cellLoc[row][col].toggleLive();
     }
 

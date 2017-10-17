@@ -39,6 +39,14 @@ public class MainActivity extends FragmentActivity {
                 gameOfLife.reset();
             }
         });
+
+        final Button stepButton = this.findViewById(R.id.step_button);
+        stepButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gameOfLife.stepOne();
+            }
+        });
     }
 
     @Override
