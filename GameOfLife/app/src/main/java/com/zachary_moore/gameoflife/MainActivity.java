@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -22,7 +23,13 @@ public class MainActivity extends FragmentActivity {
 
         // Create our GameOfLife and add it to our layout as a PFragment
         final LinearLayout gameContainer = this.findViewById(R.id.game_container);
-        gameOfLife = new GameOfLife();
+
+        // Check our bundle for our saved instance
+        if (savedInstanceState != null) {
+            gameOfLife = BundleHelper.restore(savedInstanceState);
+        } else if (gameOfLife == null) {
+            gameOfLife = new GameOfLife();
+        }
         PFragment pFragment = new PFragment(gameOfLife);
         pFragment.setView(gameContainer, this);
 
@@ -66,6 +73,14 @@ public class MainActivity extends FragmentActivity {
     public void onNewIntent(Intent intent) {
         if (gameOfLife != null) {
             gameOfLife.onNewIntent(intent);
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle state) {
+        super.onSaveInstanceState(state);
+        if (gameOfLife != null) {
+            BundleHelper.setBundle(state, gameOfLife);
         }
     }
 }

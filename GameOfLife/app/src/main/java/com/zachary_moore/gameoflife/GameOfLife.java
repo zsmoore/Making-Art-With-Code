@@ -1,7 +1,10 @@
 package com.zachary_moore.gameoflife;
 
 import android.graphics.Point;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
+import android.util.Pair;
 
 import java.util.ArrayList;
 
@@ -42,7 +45,7 @@ public class GameOfLife extends PApplet {
      * @param colSize Number of cells in columns
      * @param rowSize Number of cells in rows
      */
-    GameOfLife(int colSize, int rowSize) {
+    GameOfLife(int rowSize, int colSize) {
         this.colSize = colSize;
         this.rowSize = rowSize;
         isStarted = false;
@@ -61,7 +64,29 @@ public class GameOfLife extends PApplet {
      */
     public void setup() {
         noStroke();
+        initializeGrid();
+    }
 
+    /**
+     * Refreshing draw method from processing
+     */
+    public void draw() {
+        // If we are started lower framerate to make mutations slower
+        if (isStarted) {
+            frameRate(15);
+            conway();
+        } else if (mousePressed) {
+            // If we are not started and the mouse is pressed handle is
+            mouseClicked();
+        } else if(isStep) {
+            // If we are stepping only perform a single update with controlling bool
+            conway();
+            isStep = false;
+        }
+        refresh();
+    }
+
+    void initializeGrid() {
         cellHeight = (float) height / rowSize;
         cellWidth = (float) width / colSize;
         cellLoc = new SingleCell[rowSize][colSize];
@@ -86,25 +111,6 @@ public class GameOfLife extends PApplet {
 
         // After all our cells have been created set their neighbors.
         setNeighbors();
-    }
-
-    /**
-     * Refreshing draw method from processing
-     */
-    public void draw() {
-        // If we are started lower framerate to make mutations slower
-        if (isStarted) {
-            frameRate(15);
-            conway();
-        } else if (mousePressed) {
-            // If we are not started and the mouse is pressed handle is
-            mouseClicked();
-        } else if(isStep) {
-            // If we are stepping only perform a single update with controlling bool
-            conway();
-            isStep = false;
-        }
-        refresh();
     }
 
     /**
@@ -137,17 +143,32 @@ public class GameOfLife extends PApplet {
         return cellWidth;
     }
 
+    Pair<Integer, Integer> getGridDimensions() {
+        return new Pair<>(rowSize, colSize);
+    }
+
+    /**
+     * Set the current game's cells
+     * @param inputCells new cell representation to set to
+     */
+    void setCellLoc(SingleCell[][] inputCells) {
+        cellLoc = inputCells;
+    }
+
+    SingleCell[][] getCellLoc() {
+        return cellLoc;
+    }
+
     /**
      * Reset our canvas and all the cells within it.
      * Set our start variable to false
      */
     void reset() {
         isStarted = false;
+        frameRate(60);
         for (int i = 0; i < rowSize; i++) {
             for (int j = 0; j < colSize; j++) {
-                if (cellLoc[i][j].isLive()) {
-                    cellLoc[i][j].toggleLive();
-                }
+                cellLoc[i][j].reset();
             }
         }
     }

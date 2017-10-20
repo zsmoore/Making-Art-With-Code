@@ -101,6 +101,29 @@ class SingleCell {
         if (live) colorState = colorState == 7 ? 0 : colorState + 1;
     }
 
+    void setDead() {
+        live = false;
+    }
+
+    void setLive() {
+        live = true;
+    }
+
+    void setColorState(int state) {
+        colorState = state;
+    }
+
+    void reset() {
+        colorState = -1;
+        setDead();
+    }
+
+    /**
+     * Resets a cell's color state back to initial state
+     */
+    void resetColor() {
+        colorState = -1;
+    }
     /**
      * Set location of cell in gameOfLife grid representation
      * @param row Row in grid that our cell is at
@@ -116,6 +139,18 @@ class SingleCell {
      */
     Point getLocation() {
         return location;
+    }
+
+    /**
+     * Color return method used for serialization
+     * @return The current color of the cell
+     */
+    int getColor() {
+        if (live) {
+            return ColorUtils.getColor(colorState);
+        } else {
+            return ColorUtils.DEAD;
+        }
     }
 
     /**
