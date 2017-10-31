@@ -173,7 +173,6 @@ public class GameOfLife extends PApplet {
         }
     }
 
-
     /**
      * On mouseClick activate a cell to be live
      */

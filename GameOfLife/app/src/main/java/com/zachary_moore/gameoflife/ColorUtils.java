@@ -51,7 +51,7 @@ class ColorUtils {
      * @param color The color to find state of
      * @return colorState for specified color, 0 if not found
      */
-    private static int getColorState(int color) {
+    static int getColorState(int color) {
         return colorToState.get(color);
     }
 
