@@ -1,14 +1,14 @@
-package com.zachary_moore.gameoflife;
+package com.zachary_moore.gameoflife.model.core;
 
+import android.content.ContextWrapper;
 import android.graphics.Point;
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.util.Log;
 import android.util.Pair;
 
 import java.util.ArrayList;
 
 import processing.core.PApplet;
+
+import com.zachary_moore.gameoflife.model.util.enums.ConwayType;
 
 public class GameOfLife extends PApplet {
 
@@ -33,7 +33,7 @@ public class GameOfLife extends PApplet {
     /**
      * Default constructor for GameOfLife, sets row and col to 35
      */
-    GameOfLife() {
+    public GameOfLife() {
         this.colSize = 35;
         this.rowSize = 35;
         isStarted = false;
@@ -45,7 +45,7 @@ public class GameOfLife extends PApplet {
      * @param colSize Number of cells in columns
      * @param rowSize Number of cells in rows
      */
-    GameOfLife(int rowSize, int colSize) {
+    public GameOfLife(int rowSize, int colSize) {
         this.colSize = colSize;
         this.rowSize = rowSize;
         isStarted = false;
@@ -86,7 +86,7 @@ public class GameOfLife extends PApplet {
         refresh();
     }
 
-    void initializeGrid() {
+    public void initializeGrid() {
         cellHeight = (float) height / rowSize;
         cellWidth = (float) width / colSize;
         cellLoc = new SingleCell[rowSize][colSize];
@@ -116,14 +116,14 @@ public class GameOfLife extends PApplet {
     /**
      * Starts our conway mutations
      */
-    void startConway() {
+    public void startConway() {
         isStarted = true;
     }
 
     /**
      * Steps our conway a single time
      */
-    void stepOne() {
+    public void stepOne() {
         isStep = true;
     }
 
@@ -143,7 +143,7 @@ public class GameOfLife extends PApplet {
         return cellWidth;
     }
 
-    Pair<Integer, Integer> getGridDimensions() {
+    public Pair<Integer, Integer> getGridDimensions() {
         return new Pair<>(rowSize, colSize);
     }
 
@@ -151,11 +151,11 @@ public class GameOfLife extends PApplet {
      * Set the current game's cells
      * @param inputCells new cell representation to set to
      */
-    void setCellLoc(SingleCell[][] inputCells) {
+    public void setCellLoc(SingleCell[][] inputCells) {
         cellLoc = inputCells;
     }
 
-    SingleCell[][] getCellLoc() {
+    public SingleCell[][] getCellLoc() {
         return cellLoc;
     }
 
@@ -163,7 +163,7 @@ public class GameOfLife extends PApplet {
      * Reset our canvas and all the cells within it.
      * Set our start variable to false
      */
-    void reset() {
+    public void reset() {
         isStarted = false;
         frameRate(60);
         for (int i = 0; i < rowSize; i++) {

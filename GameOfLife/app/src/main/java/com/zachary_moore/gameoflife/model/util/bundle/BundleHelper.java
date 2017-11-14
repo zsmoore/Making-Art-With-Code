@@ -1,11 +1,14 @@
-package com.zachary_moore.gameoflife;
+package com.zachary_moore.gameoflife.model.util.bundle;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.util.Pair;
 
-class BundleHelper {
+import com.zachary_moore.gameoflife.model.core.GameOfLife;
+import com.zachary_moore.gameoflife.model.core.SingleCell;
+import com.zachary_moore.gameoflife.model.util.ColorUtils;
+
+public class BundleHelper {
 
     private static final String GAME_OF_LIFE = "gameOfLife";
     private static final String ROW_SIZE = "rowSize";
@@ -13,7 +16,7 @@ class BundleHelper {
 
     private static final String TAG = "BUNDLE";
 
-    static GameOfLife restore(Bundle state) {
+    public static GameOfLife restore(Bundle state) {
         GameOfLife gameOfLife = null;
         if (hasRowSize(state) && hasColSize(state) && hasRepresentation(state)) {
             gameOfLife = new GameOfLife(getRowSize(state), getColSize(state));
@@ -64,7 +67,7 @@ class BundleHelper {
         ColorUtils.handleColor(cell, representation);
     }
 
-    static void setBundle(Bundle state, GameOfLife gameOfLife) {
+    public static void setBundle(Bundle state, GameOfLife gameOfLife) {
         Pair<Integer, Integer> dimensions = gameOfLife.getGridDimensions();
         state.putSerializable(GAME_OF_LIFE, BundleHelper.serializeGame(gameOfLife));
         state.putInt(ROW_SIZE, dimensions.first);

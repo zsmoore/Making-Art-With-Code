@@ -1,14 +1,16 @@
-package com.zachary_moore.gameoflife;
+package com.zachary_moore.gameoflife.view;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+
+import com.zachary_moore.gameoflife.model.core.GameOfLife;
+import com.zachary_moore.gameoflife.R;
+import com.zachary_moore.gameoflife.model.util.bundle.BundleHelper;
 
 import processing.android.PFragment;
 

@@ -1,12 +1,14 @@
-package com.zachary_moore.gameoflife;
+package com.zachary_moore.gameoflife.model.util;
 
 import android.graphics.Color;
 import android.util.SparseIntArray;
 
-class ColorUtils {
+import com.zachary_moore.gameoflife.model.core.SingleCell;
+
+public class ColorUtils {
 
     // Static Hex Color Representing dead
-    static final int DEAD = Color.parseColor("#fbf1c7");
+    public static final int DEAD = Color.parseColor("#fbf1c7");
 
     private static final SparseIntArray colorToState = new SparseIntArray();
     static {
@@ -25,7 +27,7 @@ class ColorUtils {
      * @param colorState Current state in color rotation
      * @return Hex Color that our cell will be set to
      */
-    static int getColor(int colorState) {
+    public static int getColor(int colorState) {
         switch (colorState) {
             case 0:
                 return Color.parseColor("#fb4934");
@@ -51,11 +53,11 @@ class ColorUtils {
      * @param color The color to find state of
      * @return colorState for specified color, 0 if not found
      */
-    static int getColorState(int color) {
+    private static int getColorState(int color) {
         return colorToState.get(color);
     }
 
-    static void handleColor(SingleCell cell, int representation) {
+    public static void handleColor(SingleCell cell, int representation) {
         cell.setColorState(getColorState(representation));
     }
 }

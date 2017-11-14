@@ -1,11 +1,13 @@
-package com.zachary_moore.gameoflife;
+package com.zachary_moore.gameoflife.model.core;
 
 import android.graphics.Point;
-import android.util.Log;
+
+import com.zachary_moore.gameoflife.model.util.ColorUtils;
+import com.zachary_moore.gameoflife.model.util.enums.ConwayType;
 
 import java.util.ArrayList;
 
-class SingleCell {
+public class SingleCell {
 
     // Cell Height
     private float height;
@@ -25,6 +27,7 @@ class SingleCell {
     private ArrayList<SingleCell> neighbors;
     // State of cell if it is alive or not
     private boolean live;
+
 
     private final String TAG = this.getClass().getSimpleName();
 
@@ -101,15 +104,15 @@ class SingleCell {
         if (live) colorState = colorState == 7 ? 0 : colorState + 1;
     }
 
-    void setDead() {
+    public void setDead() {
         live = false;
     }
 
-    void setLive() {
+    public void setLive() {
         live = true;
     }
 
-    void setColorState(int state) {
+    public void setColorState(int state) {
         colorState = state;
     }
 
@@ -145,7 +148,7 @@ class SingleCell {
      * Color return method used for serialization
      * @return The current color of the cell
      */
-    int getColor() {
+    public int getColor() {
         if (live) {
             return ColorUtils.getColor(colorState);
         } else {
